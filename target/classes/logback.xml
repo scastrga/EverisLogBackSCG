@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<configuration packagingData="true">
+	<!-- etiqueta para la fecha -->
+	<timestamp key="logDate" datePattern="dd-MM-yyyy-HHmmss" />
+	<!-- appender RollingFile para tener condiciones cuando volquemos el log en ficheros -->
+	<appender name="STDOUT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- Ruta y nombre del fichero -->
+		<file>C://Dev//logs//everisLog-${logDate}.log</file>
+		<!-- Condicion para dividir los archivos -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
+			<!-- Ruta y nombre de los ficheros -->
+			<fileNamePattern>C://Dev//logs//everisLog-${logDate}.%i.log.zip</fileNamePattern>
+			<minIndex>1</minIndex>
+			<maxIndex>2</maxIndex>
+		</rollingPolicy>
+		<!-- Condicion para limitar el tamaño de los ficheros -->
+		<triggeringPolicy class="ch.qos.logback.core.rolling.SizeBasedTriggeringPolicy">
+			<maxFileSize>50KB</maxFileSize>
+		</triggeringPolicy>
+		<!-- Pattern para encontrar rapido lo que busques -->
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - [%method] - %msg%n</pattern>
+		</encoder>
+	</appender>
+	<!-- Nivel del root en debug -->
+	<root level="debug">
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>
